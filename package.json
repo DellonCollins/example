@@ -1,6 +1,6 @@
 {
   "name": "home-page",
-  "homepage": "http://delloncollins.github.io/home",
+  "homepage": "https://delloncollins.github.io/home",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
