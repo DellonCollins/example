@@ -7,7 +7,7 @@ class InstructionCard extends React.Component{
                 Instructions
                 </div>
                 <div id="instructionBody" className="collapse" aria-labelledby="instructionHeader">
-                <div className="card-body text-white">
+                <div className="card-body text-white bg-dark-faded">
                     <p>
                     This plot generates curves using an ordered list of control points. Rearrange the points to 
                     manipulate the curve. Keep in mind that the order of points matters in rendering the curve.

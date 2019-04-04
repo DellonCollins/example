@@ -11,6 +11,8 @@ class CurveSelector extends React.Component{
                 <select onChange={(event) => this.props._onChange(event.target.value)} className="form-control">
                     <option value="bezier">Bézier Curve</option>
                     <option value="catmullrom">Catmull Rom Spline</option>
+                    <option value="quadraticBspline">Quadratic B-Spline</option>
+                    <option value="cubicBspline">Cubic B-Spline</option>
                 </select>
                 <div className="input-group-append">
                     <span className="input-group-text" id="basic-addon2"  data-toggle="popover" title="The same set of control points will yield different result with different algorithms">?</span>

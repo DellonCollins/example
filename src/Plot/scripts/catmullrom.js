@@ -13,9 +13,9 @@ export class CatmullRom {
         return knot
     }
 
-    static generateCRSpline(points){
-        var p0, p1, p2, p3, t0, t1, t2, t3, u, numpoints
-        numpoints = 20;
+    static generateCRSpline(points, numpoints = 20){
+        var p0, p1, p2, p3, t0, t1, t2, t3, u
+        
 
         var prepend, append
         prepend = [2 * points[0][0] - points[1][0], 2 * points[0][1] - points[1][1]]

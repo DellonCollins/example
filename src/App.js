@@ -1,25 +1,37 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter, Route, Redirect, Switch} from 'react-router-dom';
-import logo from './logo.svg';
+import { Route, HashRouter, Redirect, Switch } from 'react-router-dom';
+
 import NavBar from './Components/NavBar'
+
 import Home from './Components/Home'
-import Plot from './Plot/components/plot'
+import GalleryRouter from './Components/GalleryRouter'
+import Contact from './Components/Contact'
+import Canvas from './Processing/p5Wrapper'
+
 import './App.css';
 import './animation.css';
 
 class App extends Component {
+  
+  componentDidMount(){
+    console.log(process.env.PUBLIC_URL)
+  }
   render() {
     return (
-        <Fragment>
-          <NavBar></NavBar>
-          <BrowserRouter>
-            <Switch>
-                <Route exact path="/"><Redirect to="/home"/></Route>
-                <Route path='/home' component={Home}/>
-                <Route path='/plot' component={Plot}/>
-            </Switch>
-          </BrowserRouter>
-        </Fragment>
+        <div>
+          <HashRouter>
+            <Canvas></Canvas>
+            <div className='content'>
+              <NavBar path={window.location.hash}></NavBar>
+              <Switch>
+                <Route exact path="/#/"><Redirect to="/home"/></Route>
+                <Route path='/home' component={Home}></Route>
+                <Route path='/gallery' component={GalleryRouter}></Route>
+                <Route path='/contact' component={Contact}></Route>
+              </Switch>
+            </div>
+          </HashRouter>
+        </div>
     );
   }
 }

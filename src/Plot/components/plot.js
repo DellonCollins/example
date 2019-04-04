@@ -5,15 +5,18 @@ import CurveSelector from './curveselector'
 import { isNull } from 'util';
 import {Bezier} from '../scripts/bezier'
 import {CatmullRom} from '../scripts/catmullrom'
+import {Bspline} from '../scripts/bspline'
 import SetCoord from './setcoord';
 import InstructionCard from './instructions';
+import PointSlider from './pointsSlider'
+
 
 
 class PlotComponent extends React.Component {
   constructor(){
     super();
 
-    this.state = {_x : [0, 1, 2], _y :[2, 1, 2], currentPoint : [], selectedIndex : 0, numPoints : 3, curve : 'bezier'}
+    this.state = {_x : [0, 1, 2], _y :[2, 1, 2], currentPoint : [], selectedIndex : 0, numPoints : 3, curve : 'bezier', curvePoints : 10}
 
     this.attach = this.attach.bind(this)
     this.graphEventListener = this.graphEventListener.bind(this)
@@ -50,14 +53,23 @@ class PlotComponent extends React.Component {
     this.draw(true);
   }
 
-  draw(initial = false, selectedCurve = this.state.curve){
+  draw(initial = false, selectedCurve = this.state.curve, curvePoints = this.state.curvePoints){
     var curve;
 
+    console.log(initial, selectedCurve, curvePoints)
+
     if (selectedCurve === 'bezier'){
-      curve = this.postprocessPoints(Bezier.generateBezier(this.preprocessPoints()))
+      var b = Bezier.generateBezier(this.preprocessPoints(), curvePoints)
+      curve = this.postprocessPoints(b)
     }
     else if (selectedCurve === 'catmullrom'){
-      curve = this.postprocessPoints(CatmullRom.generateCRSpline(this.preprocessPoints()))
+      curve = this.postprocessPoints(CatmullRom.generateCRSpline(this.preprocessPoints(), curvePoints))
+    }
+    else if (selectedCurve === 'quadraticBspline'){
+      curve = this.postprocessPoints(Bspline.generateQuadraticBspline(this.preprocessPoints(), curvePoints))
+    }
+    else if (selectedCurve === 'cubicBspline'){
+      curve = this.postprocessPoints(Bspline.generateCubicBspline(this.preprocessPoints(), curvePoints))
     }
     
     var data = 
@@ -81,13 +93,11 @@ class PlotComponent extends React.Component {
     
     var config = {responsive: true, doubleClick: false}
     var layout = {
-      autosize: true,
-      xaxis: {range: [0, 2]},
-      yaxis: {range: [0, 2]}
+      paper_bgcolor: '#3333'
     // plot_bgcolor: 'rgba(7,7,7,9)'
-    }
+  }
     if (initial){
-      Plotly.newPlot('graph', data, layout, config)
+      Plotly.newPlot('graph', data, null, config)
       .then(this.attach())
     }
     else{
@@ -223,14 +233,17 @@ class PlotComponent extends React.Component {
   render() {
     return (
       <div className='container'>
-        <div className="row pt-3 ">
-          <div className="col-lg-8">
+        <div className="row pt-3">
+          <div className="col-lg-8 mx-3 mx-lg-0">
             <div className="row mb-3">
               <CurveSelector _onChange={this.changeCurve}/>
             </div>
+            <div className="row mb-3">
+              <PointSlider initialNum={this.state.curvePoints} _changeNumPoints={(num) => {this.setState({curvePoints: num}); this.draw(undefined, undefined, num);}}/>
+            </div>
             <div id="graph"/>
           </div>
-          <div className="col-lg ml-3 mt-3 mt-lg-0 px-3">
+          <div className="col-lg mx-3 mx-lg-0 ml-0 ml-lg-3 mt-3 mt-lg-0 px-3">
             <div className="row mb-3">
               <InstructionCard/>
             </div>

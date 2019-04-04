@@ -26,10 +26,10 @@ export class Bezier {
         return m
     }
 
-    static generateBezier(points){
+    static generateBezier(points, numPoints=20){
         var u = []
         var degree = points.length;
-        var space = matrix.linspace(0, 1, 20)
+        var space = matrix.linspace(0, 1, numPoints)
         for (let i = 0; i < space[0].length; i++){
             var currVal = space[0][i]
             var temp = []

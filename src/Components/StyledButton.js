@@ -1,11 +1,7 @@
-import React , {Component, Fragment} from 'react'
-
+import React , {Component} from 'react'
+import { Link } from 'react-router-dom'
 
 class StyledButton extends Component{
-    constructor(props){
-        super(props);
-    }
-
     parseColor(){
         var hex ="#"
         hex += this.props.backgroundColor.r.toString(16)
@@ -20,9 +16,11 @@ class StyledButton extends Component{
             backgroundColor : this.parseColor()
         }
         return (
-            <button className="btn sub-text w-100" style={styles}>
-                <div className="btn-text-sm"> {this.props.text} </div>
+            <Link to={this.props.link}>
+            <button className="btn sub-text w-100 wobble" style={styles}>
+                <div className="btn-text-sm "> {this.props.text} </div>
             </button>
+            </Link>
         )
     }
 }

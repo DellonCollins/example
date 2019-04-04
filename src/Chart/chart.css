@@ -1,0 +1,57 @@
+.chart-wrapper{
+   position: relative;
+   
+}
+  
+.menu-container{
+    position: fixed;
+    right: -700px;
+    top: 0;
+    height: 100%;
+    width: 750px;
+    z-index: 1;
+  }
+  .menu{
+    position: absolute;
+    height:100px;
+    width: 100px;
+    margin-top: -50px; 
+    /*margin-right: -50px; */
+    background-color: rgba(200, 200, 200, 0.8);
+    border-radius: 50%;
+    top: 50%;
+    z-index: 1;
+  }
+  .settings{
+    position: absolute;
+    background-color: white;
+    padding: 20px;
+    height: 100vh;
+    left: 50px;
+    width: 500px;
+    border-radius: 10px;
+    z-index: 2;
+  }
+  .scroll-y{
+    max-height: 89vh;
+    padding-right: 17px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .noscroll-y{
+    max-height: 89vh;
+    padding-right: 17px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+  .menu-container{
+    right: -350px;
+    transition: ease;
+    transition-duration: 1s;
+  }
+  .menu-active{
+    right: -700px;
+    transition: ease;
+    transition-duration: 1s;
+  }
+  
